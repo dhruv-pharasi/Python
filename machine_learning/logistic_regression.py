@@ -111,7 +111,7 @@ def log_likelihood(x, y, weights):
         x (ndarray): shape (n_samples, n_features) feature matrix
         y (ndarray): shape (n_samples,) binary labels (0 or 1)
         weights (ndarray): shape (n_features,) parameter vector
-    
+
     Examples:
     >>> x = np.array([[0, 0, 0]])
     >>> y = np.array([0, 0, 0])
@@ -137,7 +137,7 @@ def log_likelihood(x, y, weights):
 
 def logistic_reg(alpha, x, y, max_iterations=70000):
     """
-    Trains a logistic regression model using gradient descent. 
+    Trains a logistic regression model using gradient descent.
 
     Parameters
     ----------
