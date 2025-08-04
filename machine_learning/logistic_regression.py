@@ -104,12 +104,72 @@ def cost_function(h: np.ndarray, y: np.ndarray) -> float:
 
 
 def log_likelihood(x, y, weights):
+    """
+    Compute the logistic-regression log-likelihood:
+
+    Parameters:
+        x (ndarray): shape (n_samples, n_features) feature matrix
+        y (ndarray): shape (n_samples,) binary labels (0 or 1)
+        weights (ndarray): shape (n_features,) parameter vector
+    
+    Examples:
+    >>> x = np.array([[0, 0, 0]])
+    >>> y = np.array([0, 0, 0])
+    >>> w = np.array([0, 0, 0])
+    >>> log_likelihood(x, y, w)
+    -2.0794415416798357
+
+    >>> x = np.array([[1]])
+    >>> y = np.array([1])
+    >>> w = np.array([1])
+    >>> log_likelihood(x, y, w)
+    -0.3132616875182228
+
+    >>> x = np.zeros((2, 2))
+    >>> y = np.zeros(2)
+    >>> w = np.array([1, 2])
+    >>> log_likelihood(x, y, w)
+    -1.3862943611198906
+    """
     scores = np.dot(x, weights)
     return np.sum(y * scores - np.log(1 + np.exp(scores)))
 
 
-# here alpha is the learning rate, X is the feature matrix,y is the target matrix
 def logistic_reg(alpha, x, y, max_iterations=70000):
+    """
+    Trains a logistic regression model using gradient descent. 
+
+    Parameters
+    ----------
+    alpha : float
+        Learning rate (step size) for gradient descent updates.
+    x : ndarray of shape (n_samples, n_features)
+        Feature matrix where each row corresponds to one training example.
+    y : ndarray of shape (n_samples,)
+        Binary target labels (0 or 1) for each training example.
+    max_iterations : int, optional
+        Maximum number of gradient descent iterations to perform (default: 70000).
+
+    Returns
+    -------
+    theta : ndarray of shape (n_features,)
+        Learned weight vector after optimization.
+
+    Examples:
+    >>> alpha = 0.001
+    >>> x = np.ones((2, 2))
+    >>> y = np.ones(2)
+    >>> logistic_reg(alpha, x, y, max_iterations=0)
+    array([0., 0.])
+
+    >>> alpha = 0
+    >>> x = np.ones((2, 2))
+    >>> y = np.ones(2)
+    >>> theta = logistic_reg(alpha, x, y, max_iterations=1)
+    loss: 0.6931471805599453
+    >>> theta
+    array([0., 0.])
+    """
     theta = np.zeros(x.shape[1])
 
     for iterations in range(max_iterations):
@@ -121,7 +181,7 @@ def logistic_reg(alpha, x, y, max_iterations=70000):
         h = sigmoid_function(z)
         j = cost_function(h, y)
         if iterations % 100 == 0:
-            print(f"loss: {j} \t")  # printing the loss after every 100 iterations
+            print(f"loss: {j}")  # printing the loss after every 100 iterations
     return theta
 
 
